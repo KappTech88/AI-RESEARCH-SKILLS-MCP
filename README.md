@@ -1,67 +1,67 @@
 # AI Research Skills MCP
 
-**91 expert-level AI research skills** as a local MCP server for Claude Desktop.
+[![Skills](https://img.shields.io/badge/skills-91-green.svg)]()
+[![Categories](https://img.shields.io/badge/categories-22-orange.svg)]()
 
-Built from [Orchestra Research's AI Research Skills](https://github.com/Orchestra-Research/AI-Research-SKILLs) (MIT License).
+Local MCP server providing 91 expert-level AI research skills for Claude Desktop.
 
-## Setup (Windows — same pattern as gmail-multi MCP)
+Built from [Orchestra Research's AI Research Skills](https://github.com/Orchestra-Research/AI-Research-SKILLs) library.
 
-### 1. Copy this folder
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Put the entire `ai-research-skills-mcp` folder somewhere on your machine, e.g.:
+## Installation
 
+### Prerequisites
+
+- Python 3.9+
+- Claude Desktop
+
+### Setup
+
+> **Run PowerShell as Administrator** (right-click → "Run as administrator")
+
+```powershell
+# Create the directory structure (skip if it already exists)
+New-Item -ItemType Directory -Force -Path "D:\claude-desktop-connectors\ai-research-skills-mcp"
+
+# Navigate into the project folder
+cd D:\claude-desktop-connectors\ai-research-skills-mcp
+
+# Create virtual environment and install dependencies
+python -m venv venv
+venv\Scripts\activate
+pip install mcp pyyaml
 ```
-D:\.claude\ai-research-skills-mcp\
-```
 
-### 2. Run setup
+### Connect to Claude Desktop
 
-```
-cd D:\.claude\ai-research-skills-mcp
-setup.bat
-```
-
-This creates a Python venv and installs dependencies (`mcp`, `pyyaml`).
-
-### 3. Add to Claude Desktop
-
-Press `Win+R`, type `%APPDATA%\Claude`, open `claude_desktop_config.json`:
+Press `Win+R`, type `%APPDATA%\Claude`, open `claude_desktop_config.json` and add to the `mcpServers` section:
 
 ```json
-{
-  "mcpServers": {
-    "gmail-multi": {
-      "command": "C:\\claude-gmail-mcp\\venv\\Scripts\\python.exe",
-      "args": ["C:\\claude-gmail-mcp\\server.py"]
-    },
-    "ai-research-skills": {
-      "command": "D:\\.claude\\ai-research-skills-mcp\\venv\\Scripts\\python.exe",
-      "args": ["D:\\.claude\\ai-research-skills-mcp\\servers\\server.py"]
-    }
-  }
+"ai-research-skills": {
+  "command": "D:\\claude-desktop-connectors\\ai-research-skills-mcp\\venv\\Scripts\\python.exe",
+  "args": [
+    "D:\\claude-desktop-connectors\\ai-research-skills-mcp\\servers\\server.py"
+  ]
 }
 ```
 
-> Use double backslashes `\\` in all paths (required in JSON on Windows).
+Fully quit Claude Desktop (tray icon → Quit) and reopen.
 
-### 4. Restart Claude Desktop
+## Tools (8)
 
-Fully quit (right-click tray icon → Quit) and reopen.
-
-## Tools Available (8)
-
-| Tool | What it does |
+| Tool | Description |
 |------|-------------|
-| `research_list_categories` | Browse all 22 categories |
-| `research_list_skills` | List skills with optional category filter |
-| `research_search_skills` | Keyword search |
-| `research_read_skill` | Load full expert guidance |
-| `research_read_reference` | Read supporting docs/examples/scripts |
-| `research_get_metadata` | Quick metadata lookup |
+| `research_list_categories` | Browse all 22 categories with skill counts |
+| `research_list_skills` | List skills, optionally filtered by category |
+| `research_search_skills` | Keyword search across names, descriptions, tags |
+| `research_read_skill` | Load full expert guidance for any skill |
+| `research_read_reference` | Read supporting docs, examples, scripts |
+| `research_get_metadata` | Quick metadata without loading full content |
 | `research_recommend` | Task-based skill recommendations |
 | `research_routing_table` | Full research lifecycle routing table |
 
-## Try It Out
+## Usage
 
 ```
 List my AI research skill categories
@@ -79,6 +79,45 @@ Load the vllm skill
 Search for quantization skills
 ```
 
-## 22 Categories
+## 22 Categories (91 Skills)
 
-Model Architecture, Tokenization, Fine-Tuning, Mechanistic Interpretability, Data Processing, Post-Training/RLHF, Safety & Alignment, Distributed Training, Infrastructure, Optimization, Evaluation, Inference & Serving, MLOps, Agents, RAG, Prompt Engineering, Observability, Multimodal, Emerging Techniques, ML Paper Writing, Research Ideation, Autonomous Research Orchestration.
+Model Architecture, Tokenization, Fine-Tuning, Mechanistic Interpretability, Data Processing, Post-Training/RLHF, Safety & Alignment, Distributed Training, Infrastructure, Optimization, Evaluation, Inference & Serving, MLOps, Agents, RAG, Prompt Engineering, Observability, Multimodal, Emerging Techniques, ML Paper Writing, Research Ideation, and Autonomous Research Orchestration.
+
+## Project Structure
+
+```
+D:\claude-desktop-connectors\ai-research-skills-mcp\
+├── servers\
+│   └── server.py           ← MCP server (stdio transport)
+├── skills\                  ← 91 skill directories
+│   ├── autoresearch\
+│   ├── vllm\
+│   ├── deepspeed\
+│   ├── peft\
+│   └── ...
+├── venv\                    ← Python virtual environment
+├── setup.bat                ← Windows setup script
+└── README.md
+```
+
+## Troubleshooting
+
+### Claude says it can't find the research tools
+
+Fully quit and relaunch Claude Desktop after editing `claude_desktop_config.json`. Verify the paths use double backslashes `\\` and point to the correct location on D: drive.
+
+### Server fails to start
+
+Confirm dependencies are installed in the venv:
+
+```powershell
+D:\claude-desktop-connectors\ai-research-skills-mcp\venv\Scripts\python.exe -c "import mcp, yaml; print('OK')"
+```
+
+### Skills not loading
+
+The server scans `skills/` relative to its own location. Confirm the `skills` folder is present alongside the `servers` folder.
+
+## License
+
+Skills content: MIT (Orchestra Research). Plugin packaging: MIT.

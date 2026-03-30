@@ -1,6 +1,5 @@
 # AI Research Skills MCP
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Skills](https://img.shields.io/badge/skills-91-green.svg)]()
 [![Categories](https://img.shields.io/badge/categories-22-orange.svg)]()
 

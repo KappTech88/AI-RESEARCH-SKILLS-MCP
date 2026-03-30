@@ -6,6 +6,7 @@
 Local MCP server providing 91 expert-level AI research skills for Claude Desktop.
 
 Built from [Orchestra Research's AI Research Skills](https://github.com/Orchestra-Research/AI-Research-SKILLs) library.
+
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## Installation
